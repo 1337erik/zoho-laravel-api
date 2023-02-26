@@ -1,13 +1,18 @@
 {
-    "name": "asciisd/zoho-v3",
-    "description": "Laravel Zoho API V3 Package",
-    "keywords": ["asciisd", "laravel", "zoho", "crm"],
-    "homepage": "https://github.com/asciisd/zoho-v3",
+    "name": "1337erik/zoho-laravel-api",
+    "description": "Fork from Asciisd's Laravel Zoho API V3 Package, need to take over maintaining and improving this for my own personal purposes. Feel free to use and contribute, this is my first time doing something like this.",
+    "keywords": ["asciisd", "1337erik", "erik", "laravel", "zoho", "crm"],
+    "homepage": "https://github.com/1337erik/zoho-laravel-api",
     "license": "MIT",
     "authors": [
         {
             "name": "aemaddin",
             "email": "aemaddin@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "1337erik",
+            "email": "erikpwhite@gmail.com",
             "role": "Developer"
         }
     ],
