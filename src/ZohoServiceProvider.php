@@ -18,7 +18,7 @@ class ZohoServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('zoho-v3')
+            ->name('zoho-laravel-api')
             ->hasCommands(ZohoAuthentication::class, ZohoInstallCommand::class, ZohoSetupCommand::class)
             ->hasConfigFile('zoho')
             ->hasRoute('web')
