@@ -2,6 +2,7 @@
 
 namespace Asciisd\Zoho;
 
+use App\Models\SystemSetting;
 use com\zoho\api\logger\Levels;
 use com\zoho\api\logger\LogBuilder;
 use com\zoho\crm\api\UserSignature;
@@ -16,6 +17,7 @@ use com\zoho\crm\api\InitializeBuilder;
 use com\zoho\crm\api\exception\SDKException;
 use com\zoho\api\authenticator\OAuthBuilder;
 use com\zoho\api\authenticator\store\FileStore;
+use Illuminate\Support\Facades\Schema;
 
 class Zoho
 {
@@ -82,10 +84,16 @@ class Zoho
                                           ->filePath(config('zoho.application_log_file_path'))
                                           ->build();
 
+        if( Schema::hasTable( 'system_settings' ) ){
+
+            $api_setting = SystemSetting::where( 'title', 'zoho_api' )->first();
+            $code = $api_setting ? $api_setting->options[ 'token' ] : null;
+        }
+
         $token = (new OAuthBuilder())
             ->clientId(config('zoho.client_id'))
             ->clientSecret(config('zoho.client_secret'))
-            ->grantToken($code ?? config('zoho.token'))
+            ->grantToken( $code ?? config( 'zoho.token' ))
             ->redirectURL(config('zoho.redirect_uri'))
             ->build();
 

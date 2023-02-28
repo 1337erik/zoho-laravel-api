@@ -60,26 +60,32 @@ trait ManagesActions
         );
     }
 
-    private function handleActionResponse($response): SuccessResponse|array
+    private function handleActionResponse( $response ): SuccessResponse|array
     {
-        if ($response != null) {
-            if (in_array($response->getStatusCode(), array(204, 304))) {
-                logger()->error($response->getStatusCode() == 204 ? "No Content" : "Not Modified");
+        if( $response != null ){
+
+            if( in_array( $response->getStatusCode(), array( 204, 304 ) ) ){
+
+                logger()->error( $response->getStatusCode() == 204 ? "No Content" : "Not Modified" );
 
                 return [];
             }
 
-            if ($response->isExpected()) {
+            if( $response->isExpected() ){
+
                 $responseHandler = $response->getObject();
 
-                if ($responseHandler instanceof ActionWrapper) {
-                    $actionResponse = $responseHandler->getData()[0];
+                if( $responseHandler instanceof ActionWrapper ){
 
-                    if ($actionResponse instanceof SuccessResponse) {
+                    $actionResponse = $responseHandler->getData()[ 0 ];
+
+                    if( $actionResponse instanceof SuccessResponse ){
+
                         return $actionResponse;
                     }
-                } elseif ($responseHandler instanceof APIException) {
-                    logger()->error($responseHandler->getMessage()->getValue());
+                } elseif( $responseHandler instanceof APIException ){
+
+                    logger()->error( $responseHandler->getMessage()->getValue() );
                 }
             }
         }

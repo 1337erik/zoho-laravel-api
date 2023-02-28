@@ -93,20 +93,26 @@ trait ManagesRecords
 
     private function handleRecordResponse($response): array
     {
-        if ($response != null) {
-            if (in_array($response->getStatusCode(), array(204, 304))) {
-                logger()->error($response->getStatusCode() == 204 ? "No Content" : "Not Modified");
+        if( $response != null ){
+
+            if( in_array( $response->getStatusCode(), array( 204, 304 ) ) ){
+
+                logger()->error( $response->getStatusCode() == 204 ? "No Content" : "Not Modified" );
 
                 return [];
             }
 
-            if ($response->isExpected()) {
+            if( $response->isExpected() ){
+
                 $responseHandler = $response->getObject();
 
-                if ($responseHandler instanceof RecordResponseWrapper) {
+                if( $responseHandler instanceof RecordResponseWrapper ){
+
                     return $responseHandler->getData();
-                } elseif ($responseHandler instanceof APIException) {
-                    logger()->error($responseHandler->getMessage()->getValue());
+
+                } elseif( $responseHandler instanceof APIException ){
+
+                    logger()->error( $responseHandler->getMessage()->getValue() );
                 }
             }
         }
