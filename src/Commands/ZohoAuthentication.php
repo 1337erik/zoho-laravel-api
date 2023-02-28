@@ -3,7 +3,7 @@
 
 namespace Asciisd\Zoho\Commands;
 
-
+use App\Actions\DiscordManager;
 use Illuminate\Console\Command;
 
 class ZohoAuthentication extends Command
@@ -50,5 +50,7 @@ class ZohoAuthentication extends Command
 //{{accounts_url}}/oauth/v2/token?grant_type=authorization_code&client_id={{client_id}}&client_secret={{client_secret}}&redirect_uri={{redirect_uri}}&code=1000.2ba87e1464afc3ba9042acb90f4c196d.971662a877b2aa7470642ce244c41055
         $this->info('Copy the following url, past on browser and hit return.');
         $this->line($redirect_url);
+
+        DiscordManager::embdedChannel( DiscordManager::CHANNEL_API, 'Zoho Authentication URL', $redirect_url );
     }
 }
