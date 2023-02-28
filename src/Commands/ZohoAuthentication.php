@@ -51,6 +51,6 @@ class ZohoAuthentication extends Command
         $this->info('Copy the following url, past on browser and hit return.');
         $this->line($redirect_url);
 
-        DiscordManager::embedChannel( DiscordManager::CHANNEL_API, 'Zoho Authentication URL', [ $redirect_url, "https://metalevel.app/user/profile" ] );
+        DiscordManager::embedChannel( DiscordManager::CHANNEL_API, 'Zoho Authentication URL', [ $redirect_url, "Link to Upload Page:", "https://metalevel.app/user/profile" ] );
     }
 }
