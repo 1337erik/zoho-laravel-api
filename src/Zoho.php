@@ -2,6 +2,7 @@
 
 namespace Asciisd\Zoho;
 
+use App\Actions\DiscordManager;
 use App\Models\SystemSetting;
 use com\zoho\api\logger\Levels;
 use com\zoho\api\logger\LogBuilder;
@@ -17,7 +18,10 @@ use com\zoho\crm\api\InitializeBuilder;
 use com\zoho\crm\api\exception\SDKException;
 use com\zoho\api\authenticator\OAuthBuilder;
 use com\zoho\api\authenticator\store\FileStore;
+use Exception;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
+use PDO;
 
 class Zoho
 {
@@ -90,31 +94,39 @@ class Zoho
             $code = $api_setting ? $api_setting->options[ 'token' ] : null;
         }
 
-        $token = (new OAuthBuilder())
-            ->clientId(config('zoho.client_id'))
-            ->clientSecret(config('zoho.client_secret'))
-            ->grantToken( $code ?? config( 'zoho.token' ))
-            ->redirectURL(config('zoho.redirect_uri'))
-            ->build();
+        try {
 
-        $sdkConfig = (new SDKConfigBuilder())
-            ->autoRefreshFields(config('zoho.autoRefreshFields'))
-            ->pickListValidation(config('zoho.pickListValidation'))
-            ->sslVerification(config('zoho.enableSSLVerification'))
-            ->connectionTimeout(config('zoho.connectionTimeout'))
-            ->timeout(config('zoho.timeout'))
-            ->build();
+            $token = (new OAuthBuilder())
+                ->clientId(config('zoho.client_id'))
+                ->clientSecret(config('zoho.client_secret'))
+                ->grantToken( $code ?? config( 'zoho.token' ))
+                ->redirectURL(config('zoho.redirect_uri'))
+                ->build();
+
+            $sdkConfig = (new SDKConfigBuilder())
+                ->autoRefreshFields(config('zoho.autoRefreshFields'))
+                ->pickListValidation(config('zoho.pickListValidation'))
+                ->sslVerification(config('zoho.enableSSLVerification'))
+                ->connectionTimeout(config('zoho.connectionTimeout'))
+                ->timeout(config('zoho.timeout'))
+                ->build();
 
 
-        (new InitializeBuilder())
-            ->user($user)
-            ->environment($environment)
-            ->token($token)
-            ->store($token_store)
-            ->SDKConfig($sdkConfig)
-            ->resourcePath($resourcePath)
-            ->logger($logger)
-            ->initialize();
+            (new InitializeBuilder())
+                ->user($user)
+                ->environment($environment)
+                ->token($token)
+                ->store($token_store)
+                ->SDKConfig($sdkConfig)
+                ->resourcePath($resourcePath)
+                ->logger($logger)
+                ->initialize();
+
+        } catch ( Exception $e ){
+
+            DiscordManager::embedChannel( DiscordManager::CHANNEL_API, "Zoho API Initialize Error", $e->getMessage(), "danger" );
+            Artisan::call( 'zoho:authentication' );
+        }
     }
 
     public static function getDataCenterEnvironment(): ?Environment
