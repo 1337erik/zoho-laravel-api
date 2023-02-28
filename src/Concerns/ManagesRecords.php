@@ -22,16 +22,19 @@ trait ManagesRecords
     /**
      * get the records array of given module api name
      */
-    public function getRecords($page = 1, $perPage = 200): array
+    public function getRecords( $page = 1, $perPage = 200, ?string $sortBy = 'Created_Time', ?string $sortOrder = 'desc' ): array
     {
         $recordOperations = new RecordOperations();
         $paramInstance = new ParameterMap();
 
-        $paramInstance->add(GetRecordsParam::page(), $page);
-        $paramInstance->add(GetRecordsParam::perPage(), $perPage);
+        $paramInstance->add( GetRecordsParam::page(), $page );
+        $paramInstance->add( GetRecordsParam::perPage(), $perPage );
+        $paramInstance->add( GetRecordsParam::sortBy(), $sortBy );
+        $paramInstance->add( GetRecordsParam::sortOrder(), $sortOrder );
 
         return $this->handleRecordResponse(
-            $recordOperations->getRecords($this->module_api_name, $paramInstance)
+
+            $recordOperations->getRecords( $this->module_api_name, $paramInstance )
         );
     }
 
