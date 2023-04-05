@@ -68,6 +68,7 @@ trait ManagesActions
 
                 logger()->error( $response->getStatusCode() == 204 ? "No Content" : "Not Modified" );
 
+                dd( $response );
                 return [];
             }
 
