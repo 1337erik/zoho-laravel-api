@@ -68,7 +68,7 @@ trait ManagesActions
 
                 logger()->error( $response->getStatusCode() == 204 ? "No Content" : "Not Modified" );
 
-                dd( $response );
+                dd( 'peepee', $response, optional( $response->getObject() ), optional( $response->getObject() )->getMessage(), optional( optional( $response->getObject() )->getMessage() )->getValue() );
                 return [];
             }
 
@@ -91,7 +91,7 @@ trait ManagesActions
             }
         }
 
-        dd( $response );
+        dd( 'poopoo', $response, optional( $response->getObject() ), optional( $response->getObject() )->getMessage(), optional( optional( $response->getObject() )->getMessage() )->getValue() );
         return [];
     }
 }
