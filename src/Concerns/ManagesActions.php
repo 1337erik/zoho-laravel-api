@@ -62,6 +62,7 @@ trait ManagesActions
 
     private function handleActionResponse( $response ): SuccessResponse|array
     {
+        dd( $response );
         if( $response != null ){
 
             if( in_array( $response->getStatusCode(), array( 204, 304 ) ) ){
@@ -90,8 +91,6 @@ trait ManagesActions
                 }
             }
         }
-
-        // dd( 'poopoo', $response, optional( $response->getObject() ), optional( $response->getObject() )->getMessage(), optional( optional( $response->getObject() )->getMessage() )->getValue() );
         return [];
     }
 }
