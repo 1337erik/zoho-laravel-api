@@ -62,7 +62,7 @@ trait ManagesActions
 
     private function handleActionResponse( $response ): SuccessResponse|array
     {
-        // dd( $response );
+        dd( $response );
         if( $response != null ){
 
             if( in_array( $response->getStatusCode(), array( 204, 304 ) ) ){
