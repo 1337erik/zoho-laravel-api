@@ -95,6 +95,7 @@ trait ManagesActions
         }
 
         logger()->info( 'Zoho Response Error', [ $response ] );
+        dd( $response );
         return $response;
     }
 }
