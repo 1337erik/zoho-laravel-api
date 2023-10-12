@@ -60,7 +60,7 @@ trait ManagesActions
         );
     }
 
-    private function handleActionResponse( $response ): SuccessResponse|array
+    private function handleActionResponse( $response ): SuccessResponse|ActionWrapper|array
     {
         // dd( $response );
         if( $response != null ){
@@ -96,6 +96,6 @@ trait ManagesActions
 
         logger()->info( 'Zoho Response Error', [ $response ] );
 
-        return $response?->getObject();
+        return $response?->getObject() ?: [];
     }
 }
