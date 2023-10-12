@@ -68,10 +68,11 @@ trait ManagesActions
             if( in_array( $response->getStatusCode(), array( 204, 304 ) ) ){
 
                 logger()->error( $response->getStatusCode() == 204 ? "No Content" : "Not Modified" );
-                logger()->info( 'Zoho Response Error', [ $response ] );
+                // logger()->info( 'Zoho Response Error', [ $response ] );
 
                 // dd( 'peepee', $response, optional( $response->getObject() ), optional( $response->getObject() )->getMessage(), optional( optional( $response->getObject() )->getMessage() )->getValue() );
-                return [];
+                // return [];
+                return $response;
             }
 
             if( $response->isExpected() ){
