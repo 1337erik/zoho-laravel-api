@@ -13,7 +13,7 @@ use com\zoho\crm\api\record\DeleteRecordsParam;
 
 trait ManagesActions
 {
-    public function create(array $args = []): SuccessResponse|array
+    public function create(array $args = []): SuccessResponse|ActionWrapper|array
     {
         $recordOperations = new RecordOperations();
         $bodyWrapper = new BodyWrapper();
@@ -30,7 +30,7 @@ trait ManagesActions
         );
     }
 
-    public function update(Record $record): SuccessResponse|array
+    public function update(Record $record): SuccessResponse|ActionWrapper|array
     {
         $recordOperations = new RecordOperations();
         $request = new BodyWrapper();
@@ -41,12 +41,12 @@ trait ManagesActions
         );
     }
 
-    public function deleteRecord(string $record_id): SuccessResponse|array
+    public function deleteRecord(string $record_id): SuccessResponse|ActionWrapper|array
     {
         return $this->delete([$record_id]);
     }
 
-    public function delete(array $recordIds): SuccessResponse|array
+    public function delete(array $recordIds): SuccessResponse|ActionWrapper|array
     {
         $recordOperations = new RecordOperations();
         $paramInstance = new ParameterMap();
