@@ -12,7 +12,7 @@ use com\zoho\crm\api\record\ResponseWrapper as RecordResponseWrapper;
 
 trait ManagesRecords
 {
-    public function getRecord(string $record_id): Record|null
+    public function getRecord(string $record_id): Record|null|array
     {
         $response = $this->handleRecordResponse(
             (new RecordOperations())->getRecord($record_id, $this->module_api_name)
