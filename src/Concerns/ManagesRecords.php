@@ -18,12 +18,6 @@ trait ManagesRecords
             (new RecordOperations())->getRecord($record_id, $this->module_api_name)
         );
 
-        if( !is_array( $response ) || array_key_exists( 0, $response ) ){
-
-            print_r( 'yooooo', true );
-            print_r( $response );
-        }
-
         return $response;
     }
 
