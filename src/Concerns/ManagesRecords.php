@@ -96,7 +96,11 @@ trait ManagesRecords
         );
     }
 
-    private function handleRecordResponse($response): array
+    /**
+     *
+     * @throws \com\zoho\crm\api\modules\APIException
+     */
+    private function handleRecordResponse($response): array|APIException
     {
         // dd( $response );
         if( $response != null ){

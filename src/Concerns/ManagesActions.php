@@ -60,7 +60,10 @@ trait ManagesActions
         );
     }
 
-    private function handleActionResponse( $response ): SuccessResponse|ActionWrapper|array
+    /**
+     * @throws \com\zoho\crm\api\modules\APIException
+     */
+    private function handleActionResponse( $response ): SuccessResponse|ActionWrapper|array|APIException
     {
         // dd( $response );
         if( $response != null ){
